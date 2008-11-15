@@ -12,7 +12,7 @@ module SummarizeTags
       (attribute.downcase == 'true') ? true : false
     end
     inherit = boolean_attr['inherit', false]
-    summary = boolean_attr['summary', false]
+    summary = boolean_attr['summary', true]
     part_page = page
     if inherit
       while (part_page.part(part_name).nil? and (not part_page.parent.nil?)) do
@@ -22,7 +22,11 @@ module SummarizeTags
     contextual = boolean_attr['contextual', true]
     part = part_page.part(part_name)
     tag.locals.page = part_page unless contextual
-    tag.globals.page.render_snippet(part).split('<div><!--more--></div>')[0] unless part.nil?
+    if summary
+      tag.globals.page.render_snippet(part).split('<div><!--more--></div>')[0] unless part.nil?
+    else
+      tag.globals.page.render_snippet(part).gsub(/<div><!--more--><\/div>/, "")
+    end
   end
   
   desc "Used to locate the end of a 'summary'." 
