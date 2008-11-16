@@ -34,7 +34,7 @@ module SummarizeTags
     global_page = tag.globals.page
     local_page = tag.locals.page
     unless local_page == global_page
-      html = "<div class='read_more'><a href='#{local_page.url}'>#{tag.attr['read_more_text'] || 'Continue reading'}</a></div>"
+      html = "<div class='read_more'><a href='#{local_page.url}'>#{tag.attr['link'] || 'Continue reading'}</a></div>" unless tag.attr['disable_link'] == true
       html << "<div><!--more--></div>"
     else
       html = ""
