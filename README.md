@@ -8,7 +8,7 @@ Let's say you have a blog with a list of posts. Some blogs like to summarize or 
 
 Simply add a single `<r:more />` tag after the first or so paragraphs in your post and this extension will truncate the rest. If you leave it out, the content tag will render as usual. The `<r:more />` tags simply inserts html code: `<div><!--more--></div>`. Where this code is located, this extension will simply split the post and remove everything after it (non-destructively).
 
-Ex:
+Ex: (in your page part)
 
     Hey there this is a post that I want to truncate, right about, NOW!
 
