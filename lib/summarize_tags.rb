@@ -1,7 +1,7 @@
 module SummarizeTags
   
   include Radiant::Taggable
-  
+    
   desc "Truncate content following this keyword: '!more!'" 
   tag "content" do |tag|
     page = tag.locals.page
@@ -25,13 +25,21 @@ module SummarizeTags
     if summary
       tag.globals.page.render_snippet(part).split('<div><!--more--></div>')[0] unless part.nil?
     else
-      tag.globals.page.render_snippet(part).gsub(/<div><!--more--><\/div>/, "")
+      tag.globals.page.render_snippet(part).gsub(/<div class='read_more'>(.*?)<\/div><div><!--more--><\/div>/, "")
     end
   end
   
-  desc "Used to locate the end of a 'summary'." 
+  desc "Used to locate the end of a 'summary' and put in a link to the full post."
   tag "more" do |tag|
-    %{<div><!--more--></div>}
+    global_page = tag.globals.page
+    local_page = tag.locals.page
+    unless local_page == global_page
+      html = "<div class='read_more'><a href='#{local_page.url}'>#{tag.attr['read_more_text'] || 'Continue reading'}</a></div>"
+      html << "<div><!--more--></div>"
+    else
+      html = ""
+    end
+    html
   end
   
 end
