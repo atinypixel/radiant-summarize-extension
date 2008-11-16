@@ -1,8 +1,8 @@
-= Summarize
+# Summarize
 
 When using Radiant as a blog, I found the need to have a summary page part for every post as there wasn't any way to truncate content out of the box. So I built the Summarize extension. It's pretty simple.
 
-= Usage
+## Usage
 
 Let's say you have a blog with a list of posts. Some blogs like to summarize or use an exceprt as a teaser for each post in the list. For me that has always been the first single or couple of paragraphs at the top of my post.
 
