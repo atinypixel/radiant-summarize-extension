@@ -12,16 +12,16 @@ Ex: Works in any page part.
     
     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     
-All content after the `<r:more />` tag gets truncated (non-destructively). Output from the `<r:more />` tag is disabled when viewing a page by itself (or not within another page).
+All content after the `<r:more />` tag gets truncated (non-destructively). Output from the `<r:more />` tag is disabled when viewing a page by itself (or NOT within another page).
 
 ### Notes on the modded `<r:content />` tag
 
 * It has been modified to truncate automatically when the `<r:more />` tag is present.
-* `<r:content />` tag is a duplication of the original tag found radiant core source code
+* `<r:content />` tag is a duplication of the original tag found in radiant core source code.
 
 ### Other features
 
-You can force the `<r:content />` tag to display full content
+You can force the `<r:content />` tag to display full content. (when you have RSS feeds, etc)
 
     <r:content summary="false" />
 
