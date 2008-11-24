@@ -26,6 +26,7 @@ module SummarizeTags
       tag.globals.page.render_snippet(part).split('<div><!--more--></div>')[0] unless part.nil?
     else
       tag.globals.page.render_snippet(part).gsub(/<div class='read_more'>(.*?)<\/div><div><!--more--><\/div>/, "")
+      tag.globals.page.render_snippet(part).gsub(/<div><!--more--><\/div>/, "")
     end
   end
   
@@ -34,8 +35,12 @@ module SummarizeTags
     global_page = tag.globals.page
     local_page = tag.locals.page
     unless local_page == global_page
-      html = "<div class='read_more'><a href='#{local_page.url}'>#{tag.attr['link'] || 'Continue reading'}</a></div>" unless tag.attr['disable_link'] == true
-      html << "<div><!--more--></div>"
+      if tag.attr['disable_link'] == nil
+        html = "<div class='read_more'><a href='#{local_page.url}'>#{tag.attr['link'] || 'Continue reading'}</a></div>"
+        html << "<div><!--more--></div>"
+      else
+        html = "<div><!--more--></div>"
+      end
     else
       html = ""
     end
