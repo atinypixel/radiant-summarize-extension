@@ -1,44 +1,41 @@
-# Summarize
+## Summarize
 
-When using Radiant as a blog, I found the need to have a summary page part for every post as there wasn't any way to truncate content out of the box. So I built the Summarize extension. It's pretty simple.
+This extension allows you to truncate part of a page's content.
 
 ## Usage
 
-Let's say you have a blog with a list of posts. Some blogs like to summarize or use an exceprt as a teaser for each post in the list. For me that has always been the first single or couple of paragraphs at the top of my post.
+Ex: Works in any page part.
 
-Simply add a single `<r:more />` tag after the first or so paragraphs in your post and this extension will truncate the rest. If you leave it out, the content tag will render as usual. The `<r:more />` tags simply inserts html code: `<div><!--more--></div>`. Where this code is located, this extension will simply split the post and remove everything after it (non-destructively).
-
-Ex: (in your page part)
-
-    Hey there this is a post that I want to truncate.
-
-    <r:more />
-
-    This is the rest of my post. Hopefully you enjoyed the summary
-
-Additionally, the `<r:more />` tag also outputs a link just above the truncation marker that takes you to the individual page. You also have the option of modifying the default link text or disabling the link altogether.
-
-Ex:
-    # Changing the default link text
-    <r:more link="Read more"/>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
     
-    # Disable the link
+    <r:more />
+    
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    
+All content after the `<r:more />` tag gets truncated (non-destructively). Output from the `<r:more />` tag is disabled when viewing a page by itself (or not within another page).
+
+### Notes on the modded `<r:content />` tag
+
+* It has been modified to truncate automatically when the `<r:more />` tag is present.
+* `<r:content />` tag is a duplication of the original tag found radiant core source code
+
+### Other features
+
+You can force the `<r:content />` tag to display full content
+
+    <r:content summary="false" />
+
+Since the `<r:more />` tag outputs a link by default, you can opt to change the link text on a per page basis.
+
+    <r:more link="Read more ..." />
+
+You can also disable the link altogether
+
     <r:more disable_link="true" />
     
-When viewing a page indiviually, all the html output by the `<r:more />` tag will simply disappear revealing the page's content in it's entirety. Essentially the `<r:more />` only works when displaying lists of pages. You may find this be a bug, but it's really a feature.
 
-What about when you need to show all the content in spite of the `<r:more />` tag? Well, simply pass in the `summary` attribute on the content tag and set it to false.
+### Todo
 
-Ex:
-    <r:content summary="false" />
-    
-The above simply removes the html output from the `<r:more />` tag.
-
-## TODO
-
-- Set link text (ex: "Continue reading") globally instead of per page/tag using radiant configs approach.
-
-
-## CONTRIBUTORS 
-
-If you want to help improve this extension, please fork, hack it, commit/push and send a pull request. (I'm a ruby newb, so don't mind the ugliness.)
+* Set link text globally from radiant config hashs
+* Customizable CSS and CSS class names for html output.
+* [FUTURE] Merge into the blog extension
