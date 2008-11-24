@@ -25,8 +25,18 @@ module SummarizeTags
     if summary
       tag.globals.page.render_snippet(part).split('<div><!--more--></div>')[0] unless part.nil?
     else
-      tag.globals.page.render_snippet(part).gsub(/<div class='read_more'>(.*?)<\/div><div><!--more--><\/div>/, "")
-      tag.globals.page.render_snippet(part).gsub(/<div><!--more--><\/div>/, "")
+      # Find truncate flags (including link if exists)
+      more = tag.globals.page.render_snippet(part).match(/<div><!--more--><\/div>/)
+      more_with_link = tag.globals.page.render_snippet(part).match(/<div class='read_more'>(.*?)<\/div><div><!--more--><\/div>/)
+      
+      # Remove truncate flags (including link if exists)
+      if !more_with_link.nil?
+        tag.globals.page.render_snippet(part).gsub(/<div class='read_more'>(.*?)<\/div><div><!--more--><\/div>/, "")
+      elsif !more.nil?
+        tag.globals.page.render_snippet(part).gsub(/<div><!--more--><\/div>/, "")
+      else
+        tag.globals.page.render_snippet(part)
+      end
     end
   end
   
